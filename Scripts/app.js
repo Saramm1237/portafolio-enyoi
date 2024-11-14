@@ -1,46 +1,3 @@
-const projects = [
-    {
-        idProject: 1,
-        imgProject: 'Resources/Images/Proyecto.jpeg',
-        tittleProject: 'Automatización de procesos industriales',
-        descriptionProject: 'Utiliza IA para optimizar los procesos de simulación en las áreas de ingenieríade productos industriales',
-        linkProject: ''
-    },
-]
-
-const references = [
-    {
-        name: 'David medina',
-        ocupation: 'Senior software developer',
-        phone: '3018800871',
-        email: 'cdavidm@gmail.com'
-    },
-    {
-        name: 'Emilcy Hernandez',
-        ocupation: 'Coord. Ing. de sistemas UdeM',
-        phone: '(604)5904500 Ext. 11321',
-        email: 'ejhernandez@udemedellin.edu.co' 
-    }
-]
-
-const experience = [
-    {
-        languageName: 'Python',
-        percentProcess: 45,
-        image: "python_logo.png"
-    },
-    {
-        languageName: 'SQL',
-        percentProcess: 50,
-        imagen: "sql_logo.png"
-    },
-    {
-        languageName: 'Javascript',
-        percentProcess: 10,
-        image: "javascript_logo.png"
-    },
-]
-
 document.querySelectorAll('a[href^="#"]').forEach(ancho => {
     ancho.addEventListener('click', function (event) {
         event.preventDefault();
@@ -56,48 +13,194 @@ document.querySelectorAll('a[href^="#"]').forEach(ancho => {
     });
 });
 
-loadSectionProjects()
+const projectsContainer = document.querySelector("#section-projects");
 
-function loadSectionProjects() {
-    projects.forEach( project => createCardsProjects(project))
+const projects = [
+    {
+        idProject: 1,
+        imgProject: 'Resources/Images/Proyecto.jpeg',
+        tittleProject: 'Automatización de procesos industriales',
+        descriptionProject: 'Utiliza IA para optimizar los procesos de simulación en las áreas de ingeniería de productos industriales',
+        linkProject: 'https://www.make.com/en'
+    },
+    {
+        idProject: 2,
+        imgProject: 'Resources/Images/recordatorios.jpg',
+        tittleProject: 'App de Recordatorios Personalizados',
+        descriptionProject: 'Notificaciones diarias con mensajes y tareas configurables.',
+        linkProject: 'https://www.notion.com/'
+    },
+    {
+        idProject: 3,
+        imgProject: 'Resources/Images/trivia.jpg',
+        tittleProject: 'Juego de Trivia',
+        descriptionProject: 'Juego de preguntas con múltiples categorías y niveles de dificultad.',
+        linkProject: 'https://preguntados.com/'
+    },
+    {
+        idProject: 4,
+        imgProject: 'Resources/Images/gastos.png',
+        tittleProject: 'Control de Gastos',
+        descriptionProject: 'Aplicación para registrar y visualizar gastos diarios en gráficos simples.',
+        linkProject: 'https://www.fintonic.com/es-ES/inicio/'
+    }
+];
+
+function renderProjects() {
+    const container = document.createElement('div');
+    container.classList.add('containerd-cards');
+    
+    projects.forEach(project => {
+        // Crear la estructura de la tarjeta
+        const card = document.createElement('div');
+        card.classList.add('card-projects');
+
+        const imgContainer = document.createElement('div');
+        imgContainer.classList.add('container-img-card');
+
+        const img = document.createElement('img');
+        img.src = project.imgProject;
+        img.alt = project.tittleProject;
+
+        imgContainer.appendChild(img);
+
+        const descriptionContainer = document.createElement('div');
+        descriptionContainer.classList.add('container-description');
+
+        const title = document.createElement('h3');
+        title.textContent = project.tittleProject;
+
+        const description = document.createElement('p');
+        description.textContent = project.descriptionProject;
+
+        const link = document.createElement('a');
+        link.href = project.linkProject || '#';
+        link.textContent = 'Ir a proyecto';
+
+        descriptionContainer.appendChild(title);
+        descriptionContainer.appendChild(description);
+        descriptionContainer.appendChild(link);
+
+        card.appendChild(imgContainer);
+        card.appendChild(descriptionContainer);
+        container.appendChild(card);
+    });
+
+    projectsContainer.appendChild(container);
 }
 
-function createCardsProjects(project) {
-    const cardProjet = document.createElement('div')
-    cardProjet.classList.add('card-projects')
+renderProjects();
 
-    const containerImg = document.createElement('div')
-    containerImg.classList.add('container-img-card')
+const referencesContainer = document.querySelector("#section-references");
 
-    const imgCard = document.createElement('img')
-    imgCard.src = project.imgProject
-    imgCard.alt = project.tittleProject
+const references = [
+    {
+        name: 'David medina',
+        ocupation: 'Senior software developer',
+        phone: '3018800871',
+        email: 'cdavidm@gmail.com'
+    },
+    {
+        name: 'Emilcy Hernandez',
+        ocupation: 'Coord. Ing. Sistemas',
+        phone: '(604)5904500',
+        email: 'ejhernandez@gmail.com' 
+    }
+]
 
-    const containerDescription = document('div')
-    containerDescription.classList.add('container-description')
 
-    const titleCard = document.createElement('h3')
-    titleCard.textContent = project.tittleProject
+function renderReferences() {
+    const container = document.createElement('div');
+    container.classList.add('card-references');
 
-    const descriptionCard = document.createElement('p')
-    descriptionCard.textContent = project.descriptionProject
+    references.forEach(reference => {
+        const card = document.createElement('div');
+        card.classList.add('card-reference');
 
-    const goToProject = document.createElement('a')
-    goToProject.href = project.linkProject
+        const name = document.createElement('p');
+        name.innerHTML = `Nombre: <span>${reference.name}</span>`;
 
-    goToProject.setAttribute('target', _blank)
-    goToProject.textContent = 'Ir a proyecto'
+        const ocupation = document.createElement('p');
+        ocupation.innerHTML = `Cargo: <span>${reference.ocupation}</span>`;
 
-    cardProjet.appendChild(containerImg)
-    cardProjet.appendChild(containerDescription)
+        const phone = document.createElement('p');
+        phone.innerHTML = `Teléfono: <span>${reference.phone}</span>`;
 
-    containerImg.appendChild(imgCard)
+        const email = document.createElement('p');
+        email.innerHTML = `Correo: <span>${reference.email}</span>`;
 
-    containerDescription.appendChild(titleCard)
-    containerDescription.appendChild(descriptionCard)
-    containerDescription.appendChild(goToProject)
+        card.appendChild(name);
+        card.appendChild(ocupation);
+        card.appendChild(phone);
+        card.appendChild(email);
 
-    document.getElementById('section-projects').appendChild(cardProjet)
-} 
+        container.appendChild(card);
+    });
 
-loadSectionProjects()
+    referencesContainer.appendChild(container);
+}
+
+renderReferences();
+
+const experienceContainer = document.querySelector("#section-experiences");
+
+const experience = [
+    {
+        languageName: 'Python',
+        percentProcess: 45,
+        image: "Resources/Images/python_logo.png"
+    },
+    {
+        languageName: 'SQL',
+        percentProcess: 50,
+        image: "Resources/Images/sql_logo.png"
+    },
+    {
+        languageName: 'Javascript',
+        percentProcess: 10,
+        image: "Resources/Images/javascript_logo.png"
+    },
+    {
+        languageName: 'HTML',
+        percentProcess: 40,
+        image: "Resources/Images/html.jpg"
+    },
+    {
+        languageName: 'CSS',
+        percentProcess: 40,
+        image: "Resources/Images/css.png"
+    }
+];
+
+function renderExperience() {
+    const container = document.createElement('div');
+    container.classList.add('container-experience');
+
+    experience.forEach(skill => {
+        const card = document.createElement('div');
+        card.classList.add('card-experience');
+
+        const img = document.createElement('img');
+        img.src = skill.image;
+        img.alt = skill.languageName;
+
+        const progress = document.createElement('progress');
+        progress.classList.add('progress-bar');
+        progress.value = skill.percentProcess;
+        progress.max = 100;
+
+        const label = document.createElement('p');
+        label.textContent = `${skill.languageName}: ${skill.percentProcess}%`;
+
+        card.appendChild(img);
+        card.appendChild(progress);
+        card.appendChild(label);
+
+        container.appendChild(card);
+    });
+
+    experienceContainer.appendChild(container);
+}
+
+renderExperience();
+
